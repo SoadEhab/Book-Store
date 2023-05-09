@@ -1,0 +1,264 @@
+﻿@using DataModels;
+@model PagedList.IPagedList<DataModels.Book>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    //get data to home page OR book parts
+    //if data for book parts --> (Books&Categories will be NULL)
+    var Books = ViewBag.books;
+    var Authors = ViewBag.authors;
+    var Categories = ViewBag.categories;
+    var BookParts = ViewBag.bookparts;
+    var UserInfo = (User)TempData["userinfo"];
+
+
+    var UserID = Session["UserData"];
+    if (UserID == null)
+    {
+        //Session ended
+        Response.Redirect("/User/Index");
+    }
+
+
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+
+}
+@section GoToProfile{
+    <a style="font-size: 16px;" href="/User/UserProfile?UserID=@UserInfo.UserID">
+        <img style="width: 29px;height: 29px; border-radius: 50%;" class="profile-pic" src="~/ProfilesImg/@UserInfo.Image" />&nbsp;
+        @UserInfo.FName @UserInfo.LName
+    </a>
+
+
+}
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="books-full-width">
+                <div class="container">
+                    <!-- Start: Search Section -->
+                    @if (Categories != null)
+                    {
+                        //the search block will just show in Home page
+                        //because categories will be null in bookparts bage
+                        <section>
+                            <div class="filter-box">
+                                @using (Html.BeginForm("Home", "User", FormMethod.Get))
+                                {
+                                    <input type="hidden" value="@UserInfo.UserID" name="UserID" />
+                                    <p>
+                                        <div class="col-md-5 col-md-offset-2">
+                                            <div class="form-group">
+                                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control", placeholder = "Search by Keyword" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-6">
+                                            <div class="form-group">
+                                                <input style=" margin-left: 47px;border-radius: 30px; " class="form-control" type="submit" value="Search">
+                                            </div>
+                                        </div>
+                                    </p>
+                                }
+                            </div>
+                            <div class="clear"></div>
+                        </section>
+                    }
+
+                    <!-- End: Search Section -->
+
+                    <div class="filter-options margin-list">
+
+                    </div>
+                    <div class="booksmedia-fullwidth">
+
+
+                        @if (Books == null)
+                        {
+                            //will show the books of bookparts page
+                            <ul>
+                                @foreach (var item in BookParts)
+                                {
+                                    <li style="width:25%">
+                                        <figure>
+                                            <img src="/Resources/images/books-media/layout-3/books-media-layout3-01.jpg" alt="Book">
+                                            <figcaption>
+                                                <header>
+                                                    <h4>@item.BookName</h4>
+                                                    @foreach (var x in Authors)
+                                                    {
+                                                        if (item.AuthorID == x.AuthorID)
+                                                        {
+                                                            <p><strong>Author:</strong>@x.AuthorName</p>
+                                                            <p><strong>Published Date : </strong>@item.Published_Date</p>
+                                                            <div class="actions">
+                                                                <ul>
+                                                                    <li>
+                                                                        <a onclick="AddToCart({BookID:@item.Book_PartID,AuthorID:@x.AuthorID,BookName:'@item.BookName',AuthorName:'@x.AuthorName',HasParts: true,Price:@item.Price,UserID:@UserInfo.UserID,BookNums:1})" data-toggle="blog-tags" data-placement="top" title="Add TO CART">
+                                                                            <i class="fa fa-shopping-cart" style="font-size:x-large"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="/User/BookDetails?BookID=@item.Book_PartID&UserID=@UserInfo.UserID" data-toggle="blog-tags" data-placement="top" title="Show Book Details">
+                                                                            <i class="fa fa-eye" style="font-size:x-large"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" onclick="return false" data-toggle="blog-tags" data-placement="top" title="Price">
+                                                                            <i class="fa fa-dollar" style="font-size:x-large"></i>
+                                                                        </a>
+                                                                        <strong style="font-size:large">: @item.Price $</strong>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+                                                        }
+
+                                                    }
+
+                                                </header>
+
+                                            </figcaption>
+                                        </figure>
+                                    </li>
+                                }
+                            </ul>
+                            <a href="/User/Home?UserID=@UserInfo.UserID" style="color:orange"><<< Back To Home</a>
+                            <br /><br />
+                        }
+                        else
+                        {
+                            //will show the books page
+                            <ul>
+                                @foreach (var item in Model)
+                                {
+                                    foreach (var x in Authors)
+                                    {
+                                        if (x.AuthorID == item.AuthorID || item.AuthorID == null)
+                                        {
+                                            <li style="width:25%">
+                                                <figure>
+                                                    <img src="/Resources/images/books-media/layout-3/books-media-layout3-01.jpg" alt="Book">
+                                                    <figcaption>
+                                                        <header>
+                                                            <h4>@item.BookName</h4>
+                                                            @{
+                                                                if (item.HasParts == true)
+                                                                {
+                                                                    <p><strong>Parts : </strong></p>
+                                                                    foreach (var BP in BookParts)
+                                                                    {
+                                                                        if (BP.BookID == item.BookID)
+                                                                        {
+                                                                            <p>@BP.BookName <br /></p>
+                                                                        }
+                                                                    }
+                                                                    <div class="actions">
+                                                                        <a class="aTag" href="/User/Home?BookID=@item.BookID&UserID=@UserInfo.UserID">Show Parts >>></a>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p><strong>Author:</strong>@x.AuthorName</p>
+                                                                    <p><strong>Published Date : </strong>@item.Published_Date</p>
+                                                                    <div class="actions">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a onclick="AddToCart({ BookID:@item.BookID,AuthorID:@x.AuthorID,BookName:'@item.BookName',AuthorName:'@x.AuthorName',HasParts: false,Price:@item.Price,UserID:@UserInfo.UserID,BookNums:1})" data-toggle="blog-tags" data-placement="top" title="Add TO CART">
+                                                                                    <i class="fa fa-shopping-cart" style="font-size:x-large"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="/User/BookDetails?BookID=@item.BookID&UserID=@UserInfo.UserID&AuthorID=@x.AuthorID" data-toggle="blog-tags" data-placement="top" title="Show Book Details">
+                                                                                    <i class="fa fa-eye" style="font-size:x-large"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="#" onclick="return false" data-toggle="blog-tags" data-placement="top" title="Price">
+                                                                                    <i class="fa fa-dollar" style="font-size:x-large"></i>
+                                                                                </a>
+                                                                                <strong style="font-size:large">: @item.Price $</strong>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        </header>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </li>
+                                            break;
+                                        }
+                                    }
+
+                                }
+                            </ul>
+                            <nav >
+                                <div>
+                                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                    @Html.PagedListPager(Model, page => Url.Action("Home", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, UserID = UserInfo.UserID }))
+                                    
+                                </div>
+                            </nav>
+                        }
+
+
+                    </div>
+                   
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script>
+
+    function AddToCart(Book) {
+        var cart = getItemStorage("Cart") || [];
+        let counter = 0;
+        if (cart.length == 0) {
+            setItemStorage("Cart", cart);
+            addValueToItemStorage("Cart", Book);
+            location.reload();
+        }
+        else {
+            $.each(cart, function (key, item) {
+                if (!(item.BookID == Book.BookID && item.HasParts == Book.HasParts)) {
+                    counter++;
+                    if (counter == cart.length) {
+                        setItemStorage("Cart", cart);
+                        addValueToItemStorage("Cart", Book);
+                        location.reload();
+                        toastr.success('Done', '', { timeOut: 7000 });
+                    }
+                }
+                else {
+                    toastr.error('You Choose This Book Before!!', '', { timeOut: 7000 });
+                }
+            });
+
+        }
+    }
+
+    //start statement of LocalStorage
+    function setItemStorage(itemKey, itemValue) {
+        localStorage.setItem(itemKey, JSON.stringify(itemValue));
+    }
+    function getItemStorage(itemKey) {
+        return JSON.parse(localStorage.getItem(itemKey));
+    }
+    function addValueToItemStorage(itemKey, val) {
+        let item = getItemStorage(itemKey);
+        item.push(val);
+        setItemStorage(itemKey, item);
+    }
+    //end of Local Storage
+
+
+
+</script>
+
+

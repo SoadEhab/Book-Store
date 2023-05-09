@@ -1,0 +1,16 @@
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\DataModels.dll.config
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\DataModels.dll
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\DataModels.pdb
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\EntityFramework.dll
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\EntityFramework.SqlServer.dll
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\EntityFramework.xml
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\EntityFramework.SqlServer.xml
+E:\ITI summer course\Final_Project\DataModels\obj\Debug\DataModels.csprojAssemblyReference.cache
+E:\ITI summer course\Final_Project\DataModels\obj\Debug\DataModels.csproj.CoreCompileInputs.cache
+E:\ITI summer course\Final_Project\DataModels\obj\Debug\DataModels.csproj.CopyComplete
+E:\ITI summer course\Final_Project\DataModels\obj\Debug\DataModels.dll
+E:\ITI summer course\Final_Project\DataModels\obj\Debug\DataModels.pdb
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\PagedList.dll
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\PagedList.Mvc.dll
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\PagedList.xml
+E:\ITI summer course\Final_Project\DataModels\bin\Debug\PagedList.Mvc.xml

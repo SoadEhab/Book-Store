@@ -1,0 +1,123 @@
+﻿@using DataModels;
+@{
+    var Book = ViewBag.book;
+    var Author = ViewBag.author;
+    var Category = ViewBag.category;
+    var UserInfo = (User)TempData["userinfo"];
+
+
+
+    ViewBag.Title = Book.BookName+"'s Details";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@section GoToProfile{
+    <a href="/User/UserProfile?UserID=@UserInfo.UserID">
+        <img style="width: 12%; border-radius: 50%;" class="profile-pic" src="~/ProfilesImg/@UserInfo.Image" />&nbsp;
+        @UserInfo.FName @UserInfo.LName
+    </a>
+
+
+}
+<div class="row">
+    <div class="booksmedia-detail-box">
+        <div class="single-book-box" style="border-color: rgba(0, 0, 0, 0.00)">
+            <div class="post-thumbnail" style=" margin-right: 50%">
+                <img alt="Book" src="~/Resources/images/books-media/list-view/book-media-01.jpg" />
+            </div>
+            <div class="post-detail" style=" margin-right: 14%">
+                @*<div class="books-social-sharing">
+                        <ul>
+                            <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fa fa-rss"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>*@
+                <div class="optional-links">
+                    <ul>
+                        <li>
+                            <a onclick="AddToCart({ BookID:@Book.BookID,AuthorID:@Author.AuthorID,BookName:'@Book.BookName',AuthorName:'@Author.AuthorName',HasParts: false,Price:@Book.Price,UserID:@UserInfo.UserID,BookNums:1})" data-toggle="blog-tags" data-placement="top" title="Add TO CART">
+                                <i class="fa fa-shopping-cart"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="blog-tags" data-placement="top" title="Like">
+                                <i class="fa fa-heart"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="return false" data-toggle="blog-tags" data-placement="top" title="@Book.Price $">
+                                <i class="fa fa-dollar"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/User/Home?UserID=@UserInfo.UserID" data-toggle="blog-tags" data-placement="top" title="Back To Home">
+                                <i class="fa fa-backward"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <header class="entry-header">
+                    <h2 style="color:black"><strong> @Book.BookName</strong></h2>
+                    <br />
+                    <ul>
+                        <li><strong>Category:</strong> @Category.CategoryName</li>
+                        <li><strong>Author:</strong> @Author.AuthorName. <a onmouseover="this.style.color='#ff7236'" onMouseOut="this.style.color='#6b6b6b'" href="@Author.Description">&nbsp;&nbsp;&nbsp;(Read More)</a></li>
+                        <li><strong>Published Date:</strong> @Book.Published_Date</li>
+                        <li><strong>Description:</strong> @Book.Description</li>
+
+                    </ul>
+                </header>
+                <div class="rating" style="margin-left: 80%;">
+                    <span>☆</span>
+                    <span>☆</span>
+                    <span>☆</span>
+                    <span>☆</span>
+                    <span>☆</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function AddToCart(Book) {
+        var cart = getItemStorage("Cart") || [];
+        let counter = 0;
+        if (cart.length == 0) {
+            setItemStorage("Cart", cart);
+            addValueToItemStorage("Cart", Book);
+            location.reload();
+        }
+        else {
+            $.each(cart, function (key, item) {
+                if (!(item.BookID == Book.BookID && item.HasParts == Book.HasParts)) {
+                    counter++;
+                    if (counter == cart.length) {
+                        setItemStorage("Cart", cart);
+                        addValueToItemStorage("Cart", Book);
+                        location.reload();
+                    }
+                }
+                else {
+                    toastr.error('You Choose This Book Before!!', '', { timeOut: 7000 });
+                }
+            });
+
+        }
+    }
+
+    //start statement of LocalStorage
+    function setItemStorage(itemKey, itemValue) {
+        localStorage.setItem(itemKey, JSON.stringify(itemValue));
+    }
+    function getItemStorage(itemKey) {
+        return JSON.parse(localStorage.getItem(itemKey));
+    }
+    function addValueToItemStorage(itemKey, val) {
+        let item = getItemStorage(itemKey);
+        item.push(val);
+        setItemStorage(itemKey, item);
+    }
+</script>

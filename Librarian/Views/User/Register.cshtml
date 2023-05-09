@@ -1,0 +1,259 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+
+    <title>Register</title>
+
+</head>
+
+<body>
+
+    <!-- Start: Page Banner -->
+    <section class="page-banner services-banner">
+        <div class="container">
+            <div class="banner-header">
+                <h2>Create Account</h2>
+                <span class="underline center"></span>
+            </div>
+        </div>
+    </section>
+    <!-- End: Page Banner -->
+    <!-- Start: Cart Section -->
+    <div id="content" class="site-content">
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+                <div class="signin-main">
+                    <div class="container">
+                        <div class="woocommerce">
+                            <div class="woocommerce-login">
+                                <div class="company-info signin-register" style="margin-top: -2000px;">
+                                    <div class="col-md-5 col-md-offset-1 ">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="company-detail bg-dark margin-left" style="border-radius: 50px;">
+
+                                                    <br />
+                                                    <form class="login" method="post">
+
+                                                        <div class="container">
+                                                            <div class="banner-header">
+                                                                <h4 style="color:white">Login Information</h4>
+                                                                <span class="underline center" style=" background-position: 5%"></span>
+                                                                <br />
+                                                                <br />
+                                                            </div>
+                                                        </div>
+
+                                                        <p class="form-row form-row-first input-required">
+                                                            <label>
+                                                                <span class="first-letter">E-mail</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <input type="text" id="email" name="username" class="input-text">
+                                                            <span id="validemail1" style="display:none ;font-size: 13px; color:red">Please enter your E-mail</span>
+                                                            <span id="validemail2" style="display:none ;font-size: 13px; color:red">E-mail must end by ( @@yahoo.com / @@gmail.com ) </span>
+                                                            <span id="validemail3" style="display:none ;font-size: 13px; color:red">This E-mail is already Exist</span>
+                                                        </p>
+                                                        <p class="form-row form-row-last input-required">
+                                                            <label>
+                                                                <span class="first-letter">Password</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <input type="password" id="password" name="password" class="input-text">
+                                                            <span id="validpassword" style="display:none ;font-size: 13px; color:red">Please enter your Password</span>
+                                                        </p>
+                                                        <p class="form-row form-row-last input-required">
+                                                            <label>
+                                                                <span class="first-letter">Repeat Password</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <input type="password" id="repassword" name="password" class="input-text">
+                                                            <span id="validrepassword1" style="display:none ;font-size: 13px; color:red">Enter Repeat Password</span>
+                                                            <span id="validrepassword2" style="display:none ;font-size: 13px; color:red">Password doesn't match</span>
+                                                        </p>
+                                                        <div class="container">
+                                                            <div class="banner-header">
+                                                                <h4 style="color:white">Personal Information</h4>
+                                                                <span class="underline center" style=" background-position: 5%"></span>
+                                                                <br />
+                                                                <br />
+                                                            </div>
+                                                        </div>
+                                                        <p class="form-row form-row-first input-required">
+                                                            <label>
+                                                                <span class="first-letter">First Name</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <input type="text" id="txtfname" name="username" class="input-text">
+                                                            <span id="validtxtfname" style="display:none ;font-size: 13px; color:red">Please enter your First Name</span>
+                                                        </p>
+                                                        <p class="form-row form-row-first input-required">
+                                                            <label>
+                                                                <span class="first-letter">Last Name</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <input type="text" id="txtlname" name="username" class="input-text">
+                                                            <span id="validtxtlname" style="display:none ;font-size: 13px; color:red">Please enter your Last Name</span>
+                                                        </p>
+                                                        <p class="form-row form-row-first input-required">
+                                                            <label>
+                                                                <span class="first-letter">Country</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <input type="text" id="txtcountry" name="country" class="input-text">
+                                                            <span id="validtxtcountry" style="display:none ;font-size: 13px; color:red">Please enter your Country</span>
+                                                        </p>
+                                                        <p class="form-row form-row-first input-required">
+                                                            <div class="first-letter" style="color:#707070">Gender <span class="second-letter" style=" color: #f56363;">*</span>
+                                                            <span style="margin-left: 14%;">
+                                                                <input type="radio" id="male" name="gender" value="Male">
+                                                                <label for="male">Male</label><br />
+                                                                <input type="radio" id="female" name="gender" value="Female" style=" margin-left: 26.6%; ">
+                                                                <label for="female">Female</label>
+                                                                <br />
+                                                                <span id="validtxtgender" style="display:none ;font-size: 13px; color:red;margin-left: 27%;">Please Select your Gender</span>
+                                                            </span>
+                                                            </div> 
+                                                            <br />
+                                                            <br />
+                                                            <div class="clear"></div>
+                                                            <input type="button" id="btnregist" value="Regist" name="Regist" class="button btn btn-default"style=" margin-left: 40%; ">
+                                                        </p>
+
+                                                        <div class="clear"></div>
+                                                        <div id="loading" style="display:none; margin: 0px; padding: 0px; position: fixed; right: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(102, 102, 102); z-index: 30001; opacity: 0.8;">
+
+                                                            <p style="position: absolute; color: White; top: 50%; left: 47%;">
+                                                                @*<img src="~/images/25 (1).gif" />*@
+                                                                <img src="~/Resources/images/99.gif" />
+                                                                <br /><br />
+                                                                @*Loading ...*@
+                                                                Please wait..
+                                                            </p>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!-- End: Cart Section -->
+</body>
+<script>
+    function GoToHome(id) {
+        window.location = "/User/Home?UserID=" + id
+    }
+    //start sweetAlert
+    //const Toast = Swal.mixin({
+    //    toast: true,
+    //    position: 'top-end',
+    //    showConfirmButton: false,
+    //    timer: 3000,
+    //    timerProgressBar: true,
+    //    didOpen: (toast) => {
+    //        toast.addEventListener('mouseenter', Swal.stopTimer)
+    //        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    //    }
+    //})
+    //end sweetAlert
+    $(document).ready(function () {
+        $('#btnregist').click(function () {
+            //get values of inputs
+            var fname = $('#txtfname').val();
+            var lname = $('#txtlname').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var repassword = $('#repassword').val();
+            var country = $('#txtcountry').val();
+            var gender = $("input[name='gender']:checked").val();
+
+            //hide span of validation
+            $('#validtxtfname').hide();
+            $('#validtxtlname').hide();
+            $('#validemail1').hide();
+            $('#validemail2').hide();
+            $('#validpassword').hide();
+            $('#validrepassword1').hide();
+            $('#validrepassword2').hide();
+            $('#validemail3').hide();
+            $('#validtxtcountry').hide();
+            $('#validtxtgender').hide();
+
+
+            if (fname == "" || fname == undefined) {
+                $('#validtxtfname').show();
+            }
+            else if (lname == "" || lname == undefined) {
+                $('#validtxtlname').show();
+            }
+            else if (email == "" || email == undefined) {
+                $('#validemail1').show();
+            }
+            else if (IsEmail(email) == false) {
+                $('#validemail2').show();
+            }
+            else if (password == "" || password == undefined) {
+                $('#validpassword').show();
+            }
+            else if (repassword == "" || repassword == undefined) {
+                $('#validrepassword1').show();
+            }
+            else if (repassword != password) {
+                $('#validrepassword2').show();
+            }
+            else if (country == "" || country == undefined) {
+                $('#validtxtcountry').show();
+            }
+            else if (gender == "" || gender == undefined) {
+                $('#validtxtgender').show();
+            }
+            else {
+                $.ajax({
+                    url: "/User/AddAccount?FName=" + fname +
+                        "&LName=" + lname +
+                        "&Password=" + password +
+                        "&E_mail=" + email +
+                        "&Country=" + country +
+                        "&Gender=" + gender,
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == "error") {
+                            $('#validemail3').show();
+                        }
+                        else {
+                            $('#loading').show();
+                            setTimeout(GoToHome(result), 5000);
+                        }
+                    }
+                });
+
+            }
+        })
+    })
+    function IsEmail(email) {
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!regex.test(email)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+
